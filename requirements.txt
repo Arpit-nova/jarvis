@@ -1,0 +1,6 @@
+flask
+psutil
+pyttsx3
+# optional offline voice:
+# vosk
+# sounddevice

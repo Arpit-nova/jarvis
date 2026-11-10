@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>J.A.R.V.I.S</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--c:#00e5ff;--g:1;--bg:#050b12;--tx:#d6f6ff;--mut:#7ea6b5;--line:color-mix(in srgb,var(--c) 26%,transparent);--soft:color-mix(in srgb,var(--c) 7%,var(--bg))}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:radial-gradient(1200px 700px at 50% 25%,color-mix(in srgb,var(--c) 14%,var(--bg)),var(--bg) 70%);color:var(--tx);font:14px/1.5 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+.mono,.v,#clock{font-family:Consolas,"SF Mono",monospace}
+header{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(8px)}
+.logo{font-weight:600;letter-spacing:6px;color:var(--c);text-shadow:0 0 calc(14px*var(--g)) var(--c);margin-right:8px}.sp{flex:1}
+.pill{display:flex;align-items:center;gap:7px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--mut);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#ff9d00;box-shadow:0 0 8px #ff9d00}.dot.on{background:#3dff8f;box-shadow:0 0 8px #3dff8f}
+#clock{font-size:20px;color:var(--c);letter-spacing:2px;margin:0 8px}
+.btn{height:36px;padding:0 16px;border:1px solid var(--line);background:transparent;color:var(--tx);border-radius:8px;font:inherit;font-size:12px;letter-spacing:1.5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:.2s}
+.btn:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.btn.on{border-color:var(--c);color:var(--c);box-shadow:0 0 calc(12px*var(--g)) color-mix(in srgb,var(--c) 40%,transparent)}
+.btn.pri{background:var(--c);color:#001018;border-color:var(--c);font-weight:600}.btn.pri:hover{filter:brightness(1.15)}
+.btn i{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.4}.btn.on i{opacity:1;animation:pl 1.6s infinite}
+main{flex:1;min-height:0;display:grid;grid-template-columns:340px 1fr 390px;gap:16px;padding:16px 20px 20px}
+.panel{min-height:0;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--soft),color-mix(in srgb,var(--bg) 92%,transparent));padding:16px;display:flex;flex-direction:column;box-shadow:inset 0 0 calc(30px*var(--g)) color-mix(in srgb,var(--c) 7%,transparent)}
+h3{margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--c)}
+.left{overflow:auto}.holo{width:100%;max-height:200px;filter:drop-shadow(0 0 calc(10px*var(--g)) var(--c))}
+.holo *{stroke:var(--c)}.holo .f{fill:color-mix(in srgb,var(--c) 10%,transparent)}.holo .n{fill:none}.holo .d{fill:var(--c);stroke:none}
+.fl{animation:fl 4s ease-in-out infinite}.scan{animation:sc 3s linear infinite}.ring{animation:rg 3s ease-out infinite;transform-origin:150px 196px}.ring.b{animation-delay:1.5s}
+@keyframes fl{50%{transform:translateY(-7px)}}@keyframes sc{from{transform:translateY(0)}to{transform:translateY(80px)}}@keyframes rg{from{transform:scale(.5);opacity:.9}to{transform:scale(1.2);opacity:0}}@keyframes pl{50%{opacity:.3}}
+.spec{display:grid;grid-template-columns:62px 1fr;gap:6px 10px;font-size:12px;margin:6px 0 14px;padding-top:12px;border-top:1px solid var(--line)}
+.spec b{color:var(--mut);font-weight:500;letter-spacing:1px}.v{word-break:break-word}
+.mt{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1px;color:var(--mut);margin-top:8px}.bar{height:5px;border-radius:5px;background:color-mix(in srgb,var(--c) 14%,transparent);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:5px;background:var(--c);box-shadow:0 0 calc(8px*var(--g)) var(--c);transition:width .8s}
+.center{align-items:center;justify-content:center;gap:12px;text-align:center}
+.orb{width:min(46vh,360px);filter:drop-shadow(0 0 calc(16px*var(--g)) var(--c))}.orb *{stroke:var(--c);fill:none}.orb g{transform-origin:200px 200px}
+.r1{animation:s 18s linear infinite}.r2{animation:s 11s linear infinite reverse}.r3{animation:s 26s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
+.orb .core{fill:var(--c);animation:p 3s ease-in-out infinite}.orb .hex{fill:color-mix(in srgb,var(--c) 12%,transparent);animation:p 3s infinite}@keyframes p{50%{opacity:.45}}
+body[data-s=think] .core,body[data-s=think] .hex{animation-duration:.5s}body[data-s=think] .r1,body[data-s=think] .r2{animation-duration:2s}
+#title{font-size:24px;font-weight:600;letter-spacing:12px;color:var(--c);text-shadow:0 0 calc(14px*var(--g)) var(--c);padding-left:12px}
+#state{font-size:11px;letter-spacing:4px;color:var(--mut)}#ls{font-size:11px;letter-spacing:2px;color:var(--c);opacity:.85}
+.wv{display:flex;gap:3px;height:28px;align-items:center}.wv i{width:3px;height:4px;border-radius:2px;background:var(--c);opacity:.6;transition:height .2s}
+body[data-s=talk] .wv i,body.hear .wv i{animation:w .9s ease-in-out infinite}@keyframes w{50%{height:26px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px}.chips .btn{height:30px;padding:0 12px;font-size:11px;letter-spacing:.5px}
+#log{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;scroll-behavior:smooth}
+.m{max-width:88%;padding:9px 13px;border-radius:12px;white-space:pre-wrap;word-wrap:break-word;animation:in .25s ease}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.m.u{align-self:flex-end;background:color-mix(in srgb,var(--c) 16%,transparent);border:1px solid var(--line)}.m.j{align-self:flex-start;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 60%,transparent)}
+.ty{display:flex;gap:4px;padding:12px 14px}.ty i{width:6px;height:6px;border-radius:50%;background:var(--c);animation:pl 1s infinite}.ty i:nth-child(2){animation-delay:.2s}.ty i:nth-child(3){animation-delay:.4s}
+.in{display:flex;gap:8px;margin-top:12px}.in input{flex:1;min-width:0;height:40px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 80%,transparent);color:var(--tx);font:inherit;outline:none;transition:.2s}
+.in input:focus{border-color:var(--c);box-shadow:0 0 calc(12px*var(--g)) color-mix(in srgb,var(--c) 30%,transparent)}.in .btn{height:40px}
+#set{position:fixed;top:0;right:0;bottom:0;width:300px;padding:20px;background:color-mix(in srgb,var(--bg) 96%,var(--c));border-left:1px solid var(--line);transform:translateX(105%);transition:transform .3s;z-index:9;display:flex;flex-direction:column;gap:12px}#set.open{transform:none}
+#set label{font-size:12px;color:var(--mut)}.chk{display:flex;gap:8px;align-items:center;color:var(--tx)!important}.sw{display:flex;gap:8px;flex-wrap:wrap}.sw button{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer}.sw button.a{border-color:#fff}
+#set input[type=color]{width:100%;height:34px;border:1px solid var(--line);background:none;border-radius:8px}#set input[type=range]{width:100%;accent-color:var(--c)}
+.noanim *{animation:none!important}
+.wx{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:center;margin:6px 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--c) 6%,transparent);font-size:13px}
+.wx .big{grid-row:span 2;font-size:40px;font-weight:300;line-height:1;color:var(--c);text-shadow:0 0 calc(12px*var(--g)) var(--c)}.wx small{color:var(--mut);font-size:12px}
+.wx .s2{grid-column:1/-1;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.lowbat #mbb{background:#ff4d6d;box-shadow:0 0 8px #ff4d6d;animation:pl 1s infinite}#set{overflow:auto}
+#set input[type=text]{height:34px;padding:0 10px;border-radius:8px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 80%,transparent);color:var(--tx);font:inherit;outline:none}#set input[type=text]:focus{border-color:var(--c)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+@media(max-width:1100px){body{overflow:auto;height:auto}main{grid-template-columns:1fr}.panel{min-height:420px}header{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body data-s="idle">
+<header><span class="logo">J.A.R.V.I.S</span><span class="pill"><span class="dot" id="od"></span><span id="on">--</span></span><span class="pill">BRAIN&nbsp;<b id="ai" style="color:var(--c)">--</b></span><span class="sp"></span>
+<span id="clock">--:--</span><button class="btn" id="bl"><i></i>LISTEN</button><button class="btn" id="bv"><i></i>VOICE</button><button class="btn" id="bs">CUSTOMIZE</button></header>
+<main>
+<section class="panel left"><h3>HOST SYSTEM</h3>
+<svg class="holo" viewBox="0 0 300 215"><ellipse class="ring n" cx="150" cy="196" rx="95" ry="13"/><ellipse class="ring b n" cx="150" cy="196" rx="95" ry="13"/><ellipse class="n" cx="150" cy="196" rx="60" ry="8" opacity=".6"/>
+<path class="n" d="M70 40L40 190M230 40L260 190" opacity=".25" stroke-dasharray="3 5"/>
+<g class="fl"><path class="f" d="M72 30h156l8 90H64z" stroke-width="2"/><path class="n" d="M80 38h140l6 74H74z" opacity=".5"/>
+<g class="n" opacity=".55"><path d="M86 54h60M86 66h90M86 78h50M86 90h74"/><circle cx="200" cy="72" r="16"/><circle cx="200" cy="72" r="7"/></g>
+<rect class="d scan" x="78" y="40" width="144" height="2" opacity=".7"/>
+<path class="f" d="M50 128h200l22 28H28z" stroke-width="2"/><path class="n" d="M62 136h176M58 142h184M54 148h192" opacity=".35" stroke-dasharray="6 3"/><rect class="n" x="128" y="150" width="44" height="4" rx="2" opacity=".6"/></g></svg>
+<div class="spec" id="spec"></div>
+<h3>WEATHER</h3><div class="wx" id="wx"><small style="grid-column:1/-1">Loading…</small></div>
+<h3>LIVE TELEMETRY</h3>
+<div id="mts"></div></section>
+<section class="panel center"><svg class="orb" viewBox="0 0 400 400">
+<g class="r1"><circle cx="200" cy="200" r="190" stroke-width="2" stroke-dasharray="40 12 4 12"/></g><g class="r2"><circle cx="200" cy="200" r="160" stroke-width="6" stroke-dasharray="90 30" opacity=".7"/></g>
+<g class="r3"><circle cx="200" cy="200" r="130" stroke-width="1.5" stroke-dasharray="2 8"/><path d="M200 60v22M200 318v22M60 200h22M318 200h22" stroke-width="3"/></g>
+<circle cx="200" cy="200" r="92" stroke-width="3"/><polygon class="hex" points="200,130 260,165 260,235 200,270 140,235 140,165" stroke-width="2"/><circle class="core" cx="200" cy="200" r="30"/></svg>
+<div id="title">J.A.R.V.I.S</div><div id="state">STANDING BY</div><div class="wv" id="wv"></div><div id="ls"></div><div class="chips" id="chips"></div></section>
+<section class="panel"><h3>COMMS LINK</h3><div id="log"></div>
+<div class="in"><input id="t" placeholder="Type a command, or just say &ldquo;Jarvis…&rdquo;" autocomplete="off" autofocus><button class="btn" id="cl">CLEAR</button><button class="btn pri" id="go">SEND</button></div></section>
+</main>
+<aside id="set"><h3>CUSTOMIZE</h3><label>Accent color</label><div class="sw" id="sw"></div><input type="color" id="cp">
+<label>Your name (for greetings)</label><input type="text" id="nm" placeholder="e.g. Alex"><label>Weather city</label><input type="text" id="ct" placeholder="e.g. London">
+<label>Battery warning at <b id="bwv"></b>%</label><input type="range" id="bw" min="5" max="40" step="5"><label>Glow intensity</label><input type="range" id="gl" min="0" max="2" step=".1"><label>Voice speed</label><input type="range" id="rt" min=".7" max="1.4" step=".05">
+<label class="chk"><input type="checkbox" id="wk"> Require &ldquo;Jarvis&rdquo; wake word</label><label class="chk"><input type="checkbox" id="an"> Animations</label>
+<span class="sp"></span><button class="btn" id="rs">RESET TO DEFAULT</button><button class="btn pri" id="cs">DONE</button></aside>
+<script>
+const $=s=>document.querySelector(s),DEF={c:'#00e5ff',g:1,rt:1,wk:1,an:1,li:1,vo:1,name:'',city:'',bw:20};
+let S={...DEF};try{S={...DEF,...JSON.parse(localStorage.jarvis||'{}')}}catch(e){}
+const save=()=>{try{localStorage.jarvis=JSON.stringify(S)}catch(e){}};
+const R=document.documentElement;let held=null,wxOk=false,wxTry=0,lastWx=null,warnLv=0,vosk=false,speaking=false,lastSpoke=0,voice=null,rec=null,hist=[],hi=0;
+function apply(){R.style.setProperty('--c',S.c);R.style.setProperty('--g',S.g);document.body.classList.toggle('noanim',!S.an);$('#cp').value=S.c;$('#nm').value=S.name;$('#ct').value=S.city;$('#bw').value=S.bw;$('#bwv').textContent=S.bw;$('#gl').value=S.g;$('#rt').value=S.rt;$('#wk').checked=!!S.wk;$('#an').checked=!!S.an;
+$('#bl').classList.toggle('on',!!S.li);$('#bv').classList.toggle('on',!!S.vo);document.querySelectorAll('#sw button').forEach(b=>b.classList.toggle('a',b.dataset.c==S.c));lstat();save()}
+['#00e5ff','#3dff8f','#a78bfa','#ff9d00','#ff4d6d','#4d8dff'].forEach(c=>{const b=document.createElement('button');b.style.background=c;b.dataset.c=c;b.onclick=()=>{S.c=c;apply()};$('#sw').append(b)});
+$('#cp').oninput=e=>{S.c=e.target.value;apply()};$('#gl').oninput=e=>{S.g=+e.target.value;apply()};$('#rt').oninput=e=>{S.rt=+e.target.value;save()};
+$('#nm').oninput=e=>{S.name=e.target.value.trim();save()};$('#ct').onchange=e=>{S.city=e.target.value.trim();wxOk=false;loadWx();save()};$('#bw').oninput=e=>{S.bw=+e.target.value;$('#bwv').textContent=S.bw;save()};
+$('#wk').onchange=e=>{S.wk=+e.target.checked;apply()};$('#an').onchange=e=>{S.an=+e.target.checked;apply()};$('#rs').onclick=()=>{S={...DEF};apply();startRec()};
+$('#bs').onclick=()=>$('#set').classList.toggle('open');$('#cs').onclick=()=>$('#set').classList.remove('open');
+for(let i=0;i<28;i++){const e=document.createElement('i');e.style.animationDelay=(i%7)*.12+'s';$('#wv').append(e)}
+const st=(s,l)=>{document.body.dataset.s=s;$('#state').textContent=l};
+function lstat(){$('#ls').textContent=vosk?'OFFLINE VOICE ACTIVE · SAY “JARVIS…”':!S.li?'MICROPHONE MUTED':S.wk?'LISTENING · SAY “JARVIS”':'LISTENING';document.body.classList.toggle('hear',vosk||!!S.li)}
+const pick=()=>{const v=speechSynthesis.getVoices();voice=v.find(x=>/george|david|daniel|male|alex/i.test(x.name)&&/^en/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null};speechSynthesis.onvoiceschanged=pick;pick();
+function speak(t){if(!S.vo||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.slice(0,300));if(voice)u.voice=voice;u.rate=S.rt;u.pitch=.85;
+u.onstart=()=>{speaking=true;st('talk','SPEAKING')};u.onend=()=>{speaking=false;lastSpoke=Date.now();st('idle','STANDING BY')};u.onerror=e=>{speaking=false;st('idle','STANDING BY');if(e.error=='not-allowed')held=t};speechSynthesis.speak(u)}
+const log=$('#log');function add(w,t){const d=document.createElement('div');d.className='m '+w;d.textContent=t;log.append(d);log.scrollTop=log.scrollHeight;if(w=='j')speak(t)}
+const typing=on=>{let e=$('#ty');if(on&&!e){e=document.createElement('div');e.id='ty';e.className='m j ty';e.innerHTML='<i></i><i></i><i></i>';log.append(e);log.scrollTop=log.scrollHeight}else if(!on&&e)e.remove()};
+async function api(p,b){const r=await fetch(p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});return r.json()}
+async function show(r){typing(false);st('idle','STANDING BY');add('j',r.reply);if(r.confirm){const ok=confirm('JARVIS wants to run:\n\n'+r.confirm);st('think','EXECUTING');typing(true);show(await api('/api/confirm',{ok}))}}
+async function send(t){t=t.trim();if(!t)return;hist.push(t);const nm=t.match(/^(?:jarvis[,\s]*)?(?:please )?(?:call me|my name is)\s+([\p{L}'-]+)/iu);
+if(nm){S.name=nm[1][0].toUpperCase()+nm[1].slice(1);apply();$('#t').value='';add('u',t);add('j','Of course. I will call you '+S.name+'.');return}hi=hist.length;$('#t').value='';add('u',t);st('think','PROCESSING');typing(true);const q=/^weather\s*$/i.test(t)&&S.city?'weather in '+S.city:t;try{show(await api('/api/cmd',{text:q}))}catch(e){typing(false);add('j','Lost connection to the core. Is jarvis.py still running?')}}
+$('#go').onclick=()=>send($('#t').value);$('#cl').onclick=()=>{log.innerHTML='';speechSynthesis.cancel()};
+$('#t').onkeydown=e=>{if(e.key=='Enter')send(e.target.value);if(e.key=='ArrowUp'&&hi>0){e.target.value=hist[--hi];e.preventDefault()}if(e.key=='ArrowDown'&&hi<hist.length){e.target.value=hist[++hi]||''}};
+$('#bv').onclick=()=>{S.vo=+!S.vo;if(!S.vo)speechSynthesis.cancel();apply()};
+['Check my email','Summarize my email','Read my notes','System status','Open notepad'].forEach(c=>{const b=document.createElement('button');b.className='btn';b.textContent=c;b.onclick=()=>send(c);$('#chips').append(b)});
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let retry=300;
+function heard(t){const m=t.toLowerCase().match(/^(?:hey |ok |okay )?jarvis[,.!\s]*(.*)$/);if(S.wk){if(!m)return;if(!m[1])return add('j','Yes, sir?');send(m[1])}else send(m?m[1]||t:t)}
+function startRec(){if(rec){try{rec.onend=null;rec.stop()}catch(e){}rec=null}if(!SR||vosk||!S.li)return;rec=new SR();rec.continuous=true;rec.interimResults=false;rec.lang='en-US';
+rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++){if(!e.results[i].isFinal)continue;if(speaking||Date.now()-lastSpoke<900)continue;retry=300;heard(e.results[i][0].transcript.trim())}};
+rec.onerror=e=>{if(e.error=='not-allowed'||e.error=='service-not-allowed'){S.li=0;apply();add('j','Microphone access is blocked. Allow it in the address bar, then press LISTEN.')}else if(e.error=='network'){retry=6000;$('#ls').textContent='BROWSER VOICE NEEDS INTERNET · USE VOSK OFFLINE'}};
+rec.onend=()=>{if(S.li&&!vosk)setTimeout(startRec,retry)};try{rec.start()}catch(e){}}
+$('#bl').onclick=()=>{S.li=+!S.li;apply();S.li?startRec():(rec&&rec.stop())};
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{if(held){const h=held;held=null;speak(h)}if(S.li&&!vosk&&!rec)startRec()}));
+const rows=[['MODEL','model'],['OS','os'],['CPU','cpu'],['CORES',i=>`${i.cores} cores / ${i.threads} threads`],['GPU','gpu'],['MEMORY',i=>i.ram+' GB'],['STORAGE',i=>i.disk+' GB']];
+api('/api/sysinfo').then(i=>{$('#spec').innerHTML=rows.map(([l,k])=>`<b>${l}</b><span class="v">${typeof k=='function'?k(i):i[k]}</span>`).join('')}).catch(()=>{});
+const MT=[['c','CPU'],['r','MEMORY'],['d','DISK'],['b','BATTERY']];$('#mts').innerHTML=MT.map(([k,l])=>`<div class="mt"><span>${l}</span><span id="m${k}v">--</span></div><div class="bar"><i id="m${k}b"></i></div>`).join('');
+const bar=(k,v)=>{$('#m'+k+'b').style.width=(v||0)+'%';$('#m'+k+'v').textContent=v==null?'N/A':Math.round(v)+'%'};
+let first=true;async function tick(){try{const s=await api('/api/stats');bar('c',s.cpu);bar('r',s.ram);bar('d',s.disk);bar('b',s.bat);if(s.plugged)$('#mbv').textContent+=' ⚡';batWarn(s);if(s.online&&!wxOk&&Date.now()-wxTry>60000){wxTry=Date.now();loadWx()}$('#od').className='dot'+(s.online?' on':'');$('#on').textContent=s.online?'ONLINE':'OFFLINE';$('#ai').textContent=s.ai;
+if(first||vosk!==s.vosk){vosk=s.vosk;lstat();if(first&&!vosk)startRec();if(first)greet(s);first=false}(await api('/api/events')).forEach(e=>{e.you&&add('u',e.you);show(e)})}catch(e){}
+$('#clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function greet(s){const h=new Date().getHours(),p=h<12?'morning':h<18?'afternoon':'evening';let t=`Good ${p}, ${S.name||'sir'}. All systems online.`;
+if(s.bat!=null)t+=` Battery at ${s.bat} percent${s.plugged?', charging':''}.`;if(!S.name)t+=' Say "call me" and your name, and I will use it.';add('j',t)}
+function batWarn(s){const lv=s.bat==null||s.plugged?0:s.bat<=Math.round(S.bw/2)?2:s.bat<=S.bw?1:0;document.body.classList.toggle('lowbat',lv>0);
+if(lv==0&&(s.plugged||s.bat>S.bw+5))warnLv=0;if(lv>warnLv){warnLv=lv;add('j',lv==2?`Battery critically low at ${s.bat} percent. Please plug in now.`:`Battery is at ${s.bat} percent. You may want to plug in the charger.`)}}
+const renderWx=(w,off)=>{$('#wx').innerHTML=`<div class="big">${w.temp}°</div><div>${esc(w.cond)}${off?' · offline':''}</div><small>${esc(w.city)}${w.country?', '+esc(w.country):''}</small><small class="s2">Feels ${w.feels}° · High ${w.hi}° · Low ${w.lo}° · Humidity ${w.hum}% · Wind ${w.wind} km/h</small>`};
+const wxMsg=m=>{$('#wx').innerHTML=`<small style="grid-column:1/-1">${m}</small>`};
+async function loadWx(){try{const w=await api('/api/weather'+(S.city?'?city='+encodeURIComponent(S.city):''));
+if(w.error){wxOk=false;if(w.error=='offline'&&lastWx)return renderWx(lastWx,true);return wxMsg({nocity:'Add your city in CUSTOMIZE to see the weather.',offline:'Offline · weather unavailable.',notfound:'City not found. Check the spelling in CUSTOMIZE.'}[w.error])}
+lastWx=w;wxOk=true;renderWx(w,false)}catch(e){lastWx?renderWx(lastWx,true):wxMsg('Weather unavailable.')}}
+apply();tick();loadWx();setInterval(tick,2000);setInterval(loadWx,9e5);
+</script></body></html>
